@@ -1,0 +1,14 @@
+body {
+    background-color: #34495e;
+    font-family: 'Roboto Condensed', sans-serif;
+    color: #fff;
+    width: 960px;
+    margin: 0 auto;
+    padding-top: 4em;
+    font-size: 16px;
+}
+
+.page__title {
+    font-size: 3em;
+    text-align: center;
+}
