@@ -12,3 +12,31 @@ body {
     font-size: 3em;
     text-align: center;
 }
+
+.readouts__container {
+    float: left;
+    width: 33%;
+    text-align: center;
+    text-shadow: 2px 2px 5px #333;
+}
+
+.readout__title {
+    font-size: 3em;
+}
+
+.readout__icon {
+    width: 50%;
+}
+
+.readout__label {
+    margin-right: 0.5em;
+}
+
+.readout__unit {
+    margin-left: 0.25em;
+}
+
+.readout {
+    font-size: 1.4em;
+    line-height: 1.5em;
+}

@@ -40,7 +40,14 @@ NiceWeather.model = (function ($, storage) {
 
     self.getNow = function() {
         return {
-            icon: './img/icons/icon_' + response['WeatherIcon'] + '.png'
+            icon: './img/icons/icon_' + response['WeatherIcon'] + '.png',
+            temperature: {
+                now: Math.round(parseFloat(response['Temperature'])),
+                day: null,
+                night: null,
+                max: null,
+                min: null
+            }
         }
     };
 
@@ -48,7 +55,14 @@ NiceWeather.model = (function ($, storage) {
         var forecast = response['Forecast'][index];
 
         return {
-            icon: './img/icons/icon_' + forecast['WeatherIcon'] + '.png'
+            icon: './img/icons/icon_' + forecast['WeatherIcon'] + '.png',
+            temperature: {
+                now: null,
+                day: Math.round(parseFloat(forecast['TempDay'])),
+                night: Math.round(parseFloat(forecast['TempNight'])),
+                max: Math.round(parseFloat(forecast['TempMax'])),
+                min: Math.round(parseFloat(forecast['TempMin']))
+            }
         }
     };
 

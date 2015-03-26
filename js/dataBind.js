@@ -6,9 +6,13 @@ NiceWeather.dataBind = (function($) {
 
     var self = {};
 
+    /**
+     * @param {Object} data
+     * @param {Object=} $scope
+     * @return {NiceWeather.dataBind}
+     */
     self.update = function(data, $scope) {
 
-        /* istanbul ignore if */
         if (!$scope) {
             $scope = $(document);
         }

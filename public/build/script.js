@@ -11,9 +11,13 @@ NiceWeather.dataBind = (function($) {
 
     var self = {};
 
+    /**
+     * @param {Object} data
+     * @param {Object=} $scope
+     * @return {NiceWeather.dataBind}
+     */
     self.update = function(data, $scope) {
 
-        /* istanbul ignore if */
         if (!$scope) {
             $scope = $(document);
         }
@@ -155,7 +159,14 @@ NiceWeather.model = (function ($, storage) {
 
     self.getNow = function() {
         return {
-            icon: './img/icons/icon_' + response['WeatherIcon'] + '.png'
+            icon: './img/icons/icon_' + response['WeatherIcon'] + '.png',
+            temperature: {
+                now: Math.round(parseFloat(response['Temperature'])),
+                day: null,
+                night: null,
+                max: null,
+                min: null
+            }
         }
     };
 
@@ -163,7 +174,14 @@ NiceWeather.model = (function ($, storage) {
         var forecast = response['Forecast'][index];
 
         return {
-            icon: './img/icons/icon_' + forecast['WeatherIcon'] + '.png'
+            icon: './img/icons/icon_' + forecast['WeatherIcon'] + '.png',
+            temperature: {
+                now: null,
+                day: Math.round(parseFloat(forecast['TempDay'])),
+                night: Math.round(parseFloat(forecast['TempNight'])),
+                max: Math.round(parseFloat(forecast['TempMax'])),
+                min: Math.round(parseFloat(forecast['TempMin']))
+            }
         }
     };
 
@@ -196,8 +214,9 @@ NiceWeather.controller = (function ($scope) {
                 $now = $scope.find('#weather-' + i);
             }
 
-            $now.find(".readouts__icon").attr("src", data.icon);
+            $now.find(".readout__icon").attr("src", data.icon);
 
+            NiceWeather.dataBind.update(data, $now);
         }
     };
 

@@ -25,8 +25,9 @@ NiceWeather.controller = (function ($scope) {
                 $now = $scope.find('#weather-' + i);
             }
 
-            $now.find(".readouts__icon").attr("src", data.icon);
+            $now.find(".readout__icon").attr("src", data.icon);
 
+            NiceWeather.dataBind.update(data, $now);
         }
     };
 

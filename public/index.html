@@ -13,13 +13,21 @@
         <h1 class="page__title">Pogoda w Szczecinie</h1>
 
         <div id="weather-now" class="readouts__container">
-            <img class="readouts__icon" src="">
+            <div class="readout__title">Teraz</div>
+            <img class="readout__icon" src="">
+            <div class="readout readout--main"><span class="readout__value" data-bind="temperature.now"></span><span class="readout__unit">°C</span></div>
         </div>
         <div id="weather-0" class="readouts__container">
-            <img class="readouts__icon" src="">
+            <div class="readout__title">Dziś</div>
+            <img class="readout__icon" src="">
+            <div class="readout"><span class="readout__label">Dzień:</span><span class="readout__value" data-bind="temperature.day"></span><span class="readout__unit">°C</span></div>
+            <div class="readout"><span class="readout__label">Noc:</span><span class="readout__value" data-bind="temperature.night"></span><span class="readout__unit">°C</span></div>
         </div>
         <div id="weather-1" class="readouts__container">
-            <img class="readouts__icon" src="">
+            <div class="readout__title">Jutro</div>
+            <img class="readout__icon" src="">
+            <div class="readout"><span class="readout__label">Dzień:</span><span class="readout__value" data-bind="temperature.day"></span><span class="readout__unit">°C</span></div>
+            <div class="readout"><span class="readout__label">Noc:</span><span class="readout__value" data-bind="temperature.night"></span><span class="readout__unit">°C</span></div>
         </div>
 
     </section>
