@@ -1,6 +1,8 @@
 var NiceWeather = NiceWeather || {};
 
-NiceWeather.controller = (function ($, $scope) {
+NiceWeather.controller = (function ($scope) {
+
+    'use strict';
 
     var self = {};
 
@@ -8,11 +10,25 @@ NiceWeather.controller = (function ($, $scope) {
         NiceWeather.model.load(self.onDataLoaded);
     };
 
-    self.onDataLoaded = function (data) {
-        var $now = $scope.find("#weather-now");
+    self.onDataLoaded = function () {
+        var i,
+            $now,
+            data;
 
-        $now.find(".readouts__icon").attr("src", './img/icons/icon_' + data['WeatherIcon'] + '.png');
+        for (i = -1; i < 2; i++) {
+
+            if (i === -1) {
+                data = NiceWeather.model.getNow();
+                $now = $scope.find('#weather-now');
+            } else {
+                data = NiceWeather.model.getForecast(i);
+                $now = $scope.find('#weather-' + i);
+            }
+
+            $now.find(".readouts__icon").attr("src", data.icon);
+
+        }
     };
 
     return self;
-})(jQuery, $(".readouts"));
+})($(".readouts"));

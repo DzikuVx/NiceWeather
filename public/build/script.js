@@ -5,10 +5,57 @@
 //# sourceMappingURL=jquery.min.map
 var NiceWeather = NiceWeather || {};
 
+NiceWeather.dataBind = (function($) {
+
+    'use strict';
+
+    var self = {};
+
+    self.update = function(data, $scope) {
+
+        /* istanbul ignore if */
+        if (!$scope) {
+            $scope = $(document);
+        }
+
+        $scope.find('[data-bind]').each(function() {
+            var $this = $(this),
+                key = $this.data('bind'),
+                split = key.split('.'),
+                i,
+                clonedData = $.extend(true, {}, data),
+                localKey,
+                maxLevel = split.length - 1;
+
+            for (i in split) {
+                if (split.hasOwnProperty(i)) {
+                    localKey = split[i];
+
+                    if (typeof clonedData[localKey] !== 'undefined') {
+                        if (i == maxLevel) {
+                            $this.html(clonedData[localKey]);
+                        } else {
+                            clonedData = clonedData[localKey];
+                        }
+                    }
+                }
+            }
+        });
+
+        return NiceWeather.dataBind;
+    };
+
+    return self;
+})(jQuery);
+var NiceWeather = NiceWeather || {};
+
 /**
  * localStorage with expire wrapper
  */
 NiceWeather.storage = (function() {
+
+    'use strict';
+
     var self = {};
 
     /**
@@ -70,7 +117,10 @@ var NiceWeather = NiceWeather || {};
 
 NiceWeather.model = (function ($, storage) {
 
-    var self = {};
+    'use strict';
+
+    var self = {},
+        response;
 
     self.load = function (callback) {
 
@@ -78,7 +128,8 @@ NiceWeather.model = (function ($, storage) {
 
         if (stored) {
             console.log("from cache");
-            callback(stored);
+            response = stored;
+            callback();
         } else {
             console.log("we have to get from outside");
             self.getFromServer(callback);
@@ -91,6 +142,7 @@ NiceWeather.model = (function ($, storage) {
             url: "http://weather.spychalski.info/api.php",
             success: function (data) {
                 storage.set("weatherData", data, 1800);
+                response = data;
                 callback(data);
             }
         });
@@ -101,11 +153,27 @@ NiceWeather.model = (function ($, storage) {
         return storage.get("weatherData");
     };
 
+    self.getNow = function() {
+        return {
+            icon: './img/icons/icon_' + response['WeatherIcon'] + '.png'
+        }
+    };
+
+    self.getForecast = function(index) {
+        var forecast = response['Forecast'][index];
+
+        return {
+            icon: './img/icons/icon_' + forecast['WeatherIcon'] + '.png'
+        }
+    };
+
     return self;
 })(jQuery, NiceWeather.storage);
 var NiceWeather = NiceWeather || {};
 
-NiceWeather.controller = (function ($, $scope) {
+NiceWeather.controller = (function ($scope) {
+
+    'use strict';
 
     var self = {};
 
@@ -113,12 +181,26 @@ NiceWeather.controller = (function ($, $scope) {
         NiceWeather.model.load(self.onDataLoaded);
     };
 
-    self.onDataLoaded = function (data) {
-        var $now = $scope.find("#weather-now");
+    self.onDataLoaded = function () {
+        var i,
+            $now,
+            data;
 
-        $now.find(".readouts__icon").attr("src", './img/icons/icon_' + data['WeatherIcon'] + '.png');
+        for (i = -1; i < 2; i++) {
+
+            if (i === -1) {
+                data = NiceWeather.model.getNow();
+                $now = $scope.find('#weather-now');
+            } else {
+                data = NiceWeather.model.getForecast(i);
+                $now = $scope.find('#weather-' + i);
+            }
+
+            $now.find(".readouts__icon").attr("src", data.icon);
+
+        }
     };
 
     return self;
-})(jQuery, $(".readouts"));
+})($(".readouts"));
 NiceWeather.controller.init();

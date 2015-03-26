@@ -4,6 +4,9 @@ var NiceWeather = NiceWeather || {};
  * localStorage with expire wrapper
  */
 NiceWeather.storage = (function() {
+
+    'use strict';
+
     var self = {};
 
     /**
