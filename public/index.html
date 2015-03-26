@@ -3,12 +3,11 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Pogoda w Szczecinie</title>
-    <link href='http://fonts.googleapis.com/css?family=Roboto:700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="build/styles.css">
+    <link rel="shortcut icon" type="image/ico" href="favicon.ico" />
 </head>
 <body>
-
     <section class="readouts">
         <h1 class="page__title">Pogoda w Szczecinie</h1>
 
@@ -16,22 +15,36 @@
             <div class="readout__title">Teraz</div>
             <img class="readout__icon" src="">
             <div class="readout readout--main"><span class="readout__value" data-bind="temperature.now"></span><span class="readout__unit">°C</span></div>
+            <div class="readout"><span class="readout__label">Ciśnienie</span><span class="readout__value" data-bind="pressure"></span><span class="readout__unit">hPa</span></div>
+            <div class="readout"><span class="readout__label">Wilgotność</span><span class="readout__value" data-bind="humidity"></span><span class="readout__unit">%</span></div>
+            <div class="readout"><span class="readout__label">Wiatr</span><span class="readout__value" data-bind="wind.speed"></span><span class="readout__unit">m/s</span>
+                <span class="readout__value" data-bind="wind.direction"></span><span class="readout__unit">°</span>
+            </div>
         </div>
         <div id="weather-0" class="readouts__container">
             <div class="readout__title">Dziś</div>
             <img class="readout__icon" src="">
-            <div class="readout"><span class="readout__label">Dzień:</span><span class="readout__value" data-bind="temperature.day"></span><span class="readout__unit">°C</span></div>
-            <div class="readout"><span class="readout__label">Noc:</span><span class="readout__value" data-bind="temperature.night"></span><span class="readout__unit">°C</span></div>
+            <div class="readout"><span class="readout__label">Dzień</span><span class="readout__value" data-bind="temperature.day"></span><span class="readout__unit">°C</span></div>
+            <div class="readout"><span class="readout__label">Noc</span><span class="readout__value" data-bind="temperature.night"></span><span class="readout__unit">°C</span></div>
+            <div class="readout"><span class="readout__value" data-bind="pressure"></span><span class="readout__unit">hPa</span></div>
+            <div class="readout"><span class="readout__value" data-bind="humidity"></span><span class="readout__unit">%</span></div>
+            <div class="readout"><span class="readout__value" data-bind="wind.speed"></span><span class="readout__unit">m/s</span>
+                <span class="readout__value" data-bind="wind.direction"></span><span class="readout__unit">°</span>
+            </div>
         </div>
         <div id="weather-1" class="readouts__container">
             <div class="readout__title">Jutro</div>
             <img class="readout__icon" src="">
-            <div class="readout"><span class="readout__label">Dzień:</span><span class="readout__value" data-bind="temperature.day"></span><span class="readout__unit">°C</span></div>
-            <div class="readout"><span class="readout__label">Noc:</span><span class="readout__value" data-bind="temperature.night"></span><span class="readout__unit">°C</span></div>
+            <div class="readout"><span class="readout__label">Dzień</span><span class="readout__value" data-bind="temperature.day"></span><span class="readout__unit">°C</span></div>
+            <div class="readout"><span class="readout__label">Noc</span><span class="readout__value" data-bind="temperature.night"></span><span class="readout__unit">°C</span></div>
+            <div class="readout"><span class="readout__value" data-bind="pressure"></span><span class="readout__unit">hPa</span></div>
+            <div class="readout"><span class="readout__value" data-bind="humidity"></span><span class="readout__unit">%</span></div>
+            <div class="readout"><span class="readout__value" data-bind="wind.speed"></span><span class="readout__unit">m/s</span>
+                <span class="readout__value" data-bind="wind.direction"></span><span class="readout__unit">°</span>
+            </div>
         </div>
-
+        <div class="clear-both"></div>
     </section>
-
     <script src="build/script.js"></script>
 </body>
 </html>

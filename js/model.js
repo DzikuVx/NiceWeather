@@ -47,6 +47,12 @@ NiceWeather.model = (function ($, storage) {
                 night: null,
                 max: null,
                 min: null
+            },
+            pressure: Math.round(parseFloat(response['Pressure'])),
+            humidity: Math.round(parseFloat(response['Humidity'])),
+            wind: {
+                speed: Math.round(parseFloat(response['WindSpeed'])),
+                direction: Math.round(parseFloat(response['WindDirection']))
             }
         }
     };
@@ -62,6 +68,12 @@ NiceWeather.model = (function ($, storage) {
                 night: Math.round(parseFloat(forecast['TempNight'])),
                 max: Math.round(parseFloat(forecast['TempMax'])),
                 min: Math.round(parseFloat(forecast['TempMin']))
+            },
+            pressure: Math.round(parseFloat(forecast['Pressure'])),
+            humidity: Math.round(parseFloat(forecast['Humidity'])),
+            wind: {
+                speed: Math.round(parseFloat(forecast['WindSpeed'])),
+                direction: Math.round(parseFloat(forecast['WindDirection']))
             }
         }
     };
