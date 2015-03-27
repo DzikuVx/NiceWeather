@@ -1,6 +1,6 @@
 var NiceWeather = NiceWeather || {};
 
-NiceWeather.dataBind = (function($) {
+NiceWeather.dataBind = (function() {
 
     'use strict';
 
@@ -14,15 +14,19 @@ NiceWeather.dataBind = (function($) {
     self.update = function(data, $scope) {
 
         if (!$scope) {
-            $scope = $(document);
+            $scope = document;
         }
 
-        $scope.find('[data-bind]').each(function() {
-            var $this = $(this),
-                key = $this.data('bind'),
+        var $elements = $scope.querySelectorAll('[data-bind]'),
+            elementIndex;
+
+        for (elementIndex = 0; elementIndex < $elements.length; elementIndex++) {
+
+            var $this = $elements[elementIndex],
+                key = $this.dataset.bind,
                 split = key.split('.'),
                 i,
-                clonedData = $.extend(true, {}, data),
+                clonedData = JSON.parse(JSON.stringify(data)),
                 localKey,
                 maxLevel = split.length - 1;
 
@@ -32,17 +36,17 @@ NiceWeather.dataBind = (function($) {
 
                     if (typeof clonedData[localKey] !== 'undefined') {
                         if (i == maxLevel) {
-                            $this.html(clonedData[localKey]);
+                            $this.innerHTML = clonedData[localKey];
                         } else {
                             clonedData = clonedData[localKey];
                         }
                     }
                 }
             }
-        });
+        }
 
         return NiceWeather.dataBind;
     };
 
     return self;
-})(jQuery);
+})();

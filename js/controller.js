@@ -12,24 +12,23 @@ NiceWeather.controller = (function ($scope) {
 
     self.onDataLoaded = function () {
         var i,
-            $now,
+            $container,
             data;
 
         for (i = -1; i < 2; i++) {
 
             if (i === -1) {
                 data = NiceWeather.model.getNow();
-                $now = $scope.find('#weather-now');
+                $container = $scope.querySelector('#weather-now');
             } else {
                 data = NiceWeather.model.getForecast(i);
-                $now = $scope.find('#weather-' + i);
+                $container = $scope.querySelector('#weather-' + i);
             }
 
-            $now.find(".readout__icon").attr("src", data.icon);
-
-            NiceWeather.dataBind.update(data, $now);
+            $container.getElementsByClassName("readout__icon")[0].src = data.icon;
+            NiceWeather.dataBind.update(data, $container);
         }
     };
 
     return self;
-})($(".readouts"));
+})(document.getElementsByClassName('readouts')[0]);
