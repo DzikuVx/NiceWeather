@@ -13,6 +13,7 @@ sources.css = [
 
 sources.js = [
     './bower_components/jquery/dist/jquery.min.js',
+    './js/jsonp.js',
     './js/dataBind.js',
     './js/storage.js',
     './js/model.js',

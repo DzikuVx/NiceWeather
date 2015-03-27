@@ -1,6 +1,6 @@
 var NiceWeather = NiceWeather || {};
 
-NiceWeather.model = (function ($, storage) {
+NiceWeather.model = (function (storage) {
 
     'use strict';
 
@@ -22,16 +22,16 @@ NiceWeather.model = (function ($, storage) {
     };
 
     self.getFromServer = function (callback) {
-        $.ajax({
-            dataType: "jsonp",
-            url: "http://weather.spychalski.info/api.php",
-            success: function (data) {
+        var callbackName = 'modelCallback' + Math.round(Math.random() * 1000);
+
+        NiceWeather.jsonp.send('http://weather.spychalski.info/api.php?callback=' + callbackName, {
+            callbackName: callbackName,
+            onSuccess: function (data) {
                 storage.set("weatherData", data, 1800);
                 response = data;
                 callback(data);
             }
         });
-
     };
 
     self.getFromCache = function () {
@@ -79,4 +79,4 @@ NiceWeather.model = (function ($, storage) {
     };
 
     return self;
-})(jQuery, NiceWeather.storage);
+})(NiceWeather.storage);
